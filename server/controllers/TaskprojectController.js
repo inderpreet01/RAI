@@ -26,11 +26,15 @@ exports.getTaskProjectById = async (req, res) => {
     try {
         const taskProject = await TaskProject.findById(req.params.id);
         if (!taskProject) {
-            return res.status(404).json({ message: 'Task/project not found' });
+            return res.status(404).json({ 
+                message: 'Task/project not found' 
+            });
         }
         res.status(200).json(taskProject);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(500).json({ 
+            message: error.message 
+        });
     }
 };
 
@@ -39,11 +43,15 @@ exports.updateTaskProject = async (req, res) => {
     try {
         const taskProject = await TaskProject.findByIdAndUpdate(req.params.id, req.body, { new: true });
         if (!taskProject) {
-            return res.status(404).json({ message: 'Task/project not found' });
+            return res.status(404).json({ 
+                message: 'Task/project not found' 
+            });
         }
         res.status(200).json(taskProject);
     } catch (error) {
-        res.status(400).json({ message: error.message });
+        res.status(400).json({
+             message: error.message 
+            });
     }
 };
 
@@ -52,10 +60,14 @@ exports.deleteTaskProject = async (req, res) => {
     try {
         const taskProject = await TaskProject.findByIdAndDelete(req.params.id);
         if (!taskProject) {
-            return res.status(404).json({ message: 'Task/project not found' });
+            return res.status(404).json({ 
+                message: 'Task/project not found' 
+            });
         }
         res.status(204).json();
     } catch (error) {
-        res.status(400).json({ message: error.message });
+        res.status(400).json({
+             message: error.message
+             });
     }
 };

@@ -7,7 +7,9 @@ exports.createHRUser = async (req, res) => {
         await hrUser.save();
         res.status(201).json(hrUser);
     } catch (error) {
-        res.status(400).json({ message: error.message });
+        res.status(400).json({ 
+            message: error.message 
+        });
     }
 };
 
@@ -17,7 +19,9 @@ exports.getAllHRUsers = async (req, res) => {
         const hrUsers = await HRUser.find();
         res.status(200).json(hrUsers);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(500).json({ 
+            message: error.message 
+        });
     }
 };
 
@@ -26,11 +30,17 @@ exports.getHRUserById = async (req, res) => {
     try {
         const hrUser = await HRUser.findById(req.params.id);
         if (!hrUser) {
-            return res.status(404).json({ message: 'HR user not found' });
+            return res.status(404).json({ 
+                success:false,
+                message: 'HR user not found' 
+            });
         }
         res.status(200).json(hrUser);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(500).json({ 
+            success:false,
+            message: error.message 
+        });
     }
 };
 
@@ -39,11 +49,17 @@ exports.updateHRUser = async (req, res) => {
     try {
         const hrUser = await HRUser.findByIdAndUpdate(req.params.id, req.body, { new: true });
         if (!hrUser) {
-            return res.status(404).json({ message: 'HR user not found' });
+            return res.status(404).json({ 
+                success:false,
+                message: 'HR user not found' 
+            });
         }
         res.status(200).json(hrUser);
     } catch (error) {
-        res.status(400).json({ message: error.message });
+        res.status(400).json({ 
+            success:false,
+            message: error.message
+         });
     }
 };
 
@@ -52,10 +68,16 @@ exports.deleteHRUser = async (req, res) => {
     try {
         const hrUser = await HRUser.findByIdAndDelete(req.params.id);
         if (!hrUser) {
-            return res.status(404).json({ message: 'HR user not found' });
+            return res.status(404).json({
+                success:false,
+                 message: 'HR user not found' 
+                });
         }
         res.status(204).json();
     } catch (error) {
-        res.status(400).json({ message: error.message });
+        res.status(400).json({ 
+            success:false,
+            message: error.message
+         });
     }
 };

@@ -7,7 +7,9 @@ exports.createPerformanceReview = async (req, res) => {
         await performanceReview.save();
         res.status(201).json(performanceReview);
     } catch (error) {
-        res.status(400).json({ message: error.message });
+        res.status(400).json({ 
+            message: error.message 
+        });
     }
 };
 
@@ -17,7 +19,9 @@ exports.getAllPerformanceReviews = async (req, res) => {
         const performanceReviews = await PerformanceReview.find();
         res.status(200).json(performanceReviews);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(500).json({ 
+            message: error.message
+         });
     }
 };
 
@@ -26,11 +30,15 @@ exports.getPerformanceReviewById = async (req, res) => {
     try {
         const performanceReview = await PerformanceReview.findById(req.params.id);
         if (!performanceReview) {
-            return res.status(404).json({ message: 'Performance review not found' });
+            return res.status(404).json({
+                 message: 'Performance review not found'
+                 });
         }
         res.status(200).json(performanceReview);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(500).json({
+             message: error.message 
+            });
     }
 };
 
@@ -39,11 +47,15 @@ exports.updatePerformanceReview = async (req, res) => {
     try {
         const performanceReview = await PerformanceReview.findByIdAndUpdate(req.params.id, req.body, { new: true });
         if (!performanceReview) {
-            return res.status(404).json({ message: 'Performance review not found' });
+            return res.status(404).json({ 
+                message: 'Performance review not found' 
+            });
         }
         res.status(200).json(performanceReview);
     } catch (error) {
-        res.status(400).json({ message: error.message });
+        res.status(400).json({
+             message: error.message 
+            });
     }
 };
 
@@ -52,10 +64,14 @@ exports.deletePerformanceReview = async (req, res) => {
     try {
         const performanceReview = await PerformanceReview.findByIdAndDelete(req.params.id);
         if (!performanceReview) {
-            return res.status(404).json({ message: 'Performance review not found' });
+            return res.status(404).json({ 
+                message: 'Performance review not found' 
+            });
         }
         res.status(204).json();
     } catch (error) {
-        res.status(400).json({ message: error.message });
+        res.status(400).json({ 
+            message: error.message 
+        });
     }
 };

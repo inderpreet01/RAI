@@ -8,7 +8,10 @@ exports.authenticateUser = async (req, res, next) => {
         // Check if the request contains a valid JWT token
         const token = req.headers.authorization.split(' ')[1];
         if (!token) {
-            return res.status(401).json({ message: 'Access denied. No token provided.' });
+            return res.status(401).json({ 
+                success:false,
+                message: 'Access denied. No token provided.' 
+            });
         }
 
         // Verify the token
@@ -16,7 +19,10 @@ exports.authenticateUser = async (req, res, next) => {
         req.user = decoded; // Attach the decoded user to the request object
         next();
     } catch (error) {
-        res.status(401).json({ message: 'Invalid token.' });
+        res.status(401).json({ 
+            message: 'Invalid token.' ,
+            success:false
+    });
     }
 };
 
@@ -29,16 +35,25 @@ exports.authorizeUser = async (req, res, next) => {
         // Check if the user is an HR user
         const user = await HRUser.findById(userId);
         if (!user) {
-            return res.status(403).json({ message: 'Forbidden. User is not authorized.' });
+            return res.status(403).json({ 
+                success:false,
+                message: 'Forbidden. User is not authorized.' 
+            });
         }
 
         // Check if the user has appropriate permissions
         if (!user.approvalOfEmployee) {
-            return res.status(403).json({ message: 'Forbidden. User does not have permission.' });
+            return res.status(403).json({ 
+                message: 'Forbidden. User does not have permission.',
+                success:false,
+             });
         }
 
         next(); // User is authorized, proceed to the next middleware/route handler
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(500).json({ 
+            message: error.message ,
+            success:false,
+        });
     }
 };

@@ -8,7 +8,9 @@ exports.createGuestHouse = async (req, res) => {
         await guestHouse.save();
         res.status(201).json(guestHouse);
     } catch (error) {
-        res.status(400).json({ message: error.message });
+        res.status(400).json({ 
+            message: error.message
+         });
     }
 };
 
@@ -18,7 +20,9 @@ exports.getAllGuestHouses = async (req, res) => {
         const guestHouses = await GuestHouse.find();
         res.status(200).json(guestHouses);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(500).json({ 
+            message: error.message 
+        });
     }
 };
 
@@ -27,24 +31,33 @@ exports.getGuestHouseById = async (req, res) => {
     try {
         const guestHouse = await GuestHouse.findById(req.params.id);
         if (!guestHouse) {
-            return res.status(404).json({ message: 'Guest house not found' });
+            return res.status(404).json({ 
+                message: 'Guest house not found' 
+            });
         }
         res.status(200).json(guestHouse);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(500).json({ 
+            message: error.message 
+        });
     }
 };
 
 // Update guest house
 exports.updateGuestHouse = async (req, res) => {
     try {
-        const guestHouse = await GuestHouse.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        const guestHouse = await GuestHouse.findByIdAndUpdate(req.params.id, req.body, 
+            { new: true });
         if (!guestHouse) {
-            return res.status(404).json({ message: 'Guest house not found' });
+            return res.status(404).json({ 
+                message: 'Guest house not found'
+             });
         }
         res.status(200).json(guestHouse);
     } catch (error) {
-        res.status(400).json({ message: error.message });
+        res.status(400).json({ 
+            message: error.message 
+        });
     }
 };
 
@@ -53,11 +66,15 @@ exports.deleteGuestHouse = async (req, res) => {
     try {
         const guestHouse = await GuestHouse.findByIdAndDelete(req.params.id);
         if (!guestHouse) {
-            return res.status(404).json({ message: 'Guest house not found' });
+            return res.status(404).json({ 
+                message: 'Guest house not found' 
+            });
         }
         res.status(204).json();
     } catch (error) {
-        res.status(400).json({ message: error.message });
+        res.status(400).json({
+             message: error.message
+             });
     }
 };
 
@@ -69,7 +86,9 @@ exports.bookGuestHouse = async (req, res) => {
         // Check if guest house exists
         const guestHouse = await GuestHouse.findById(guestHouseId);
         if (!guestHouse) {
-            return res.status(404).json({ message: 'Guest house not found' });
+            return res.status(404).json({
+                 message: 'Guest house not found' 
+                });
         }
 
         // Create a new booking
@@ -81,8 +100,13 @@ exports.bookGuestHouse = async (req, res) => {
         });
 
         await booking.save();
-        res.status(201).json(booking);
+        res.status(201).json({
+            success:true,
+            message:"successfully booked",
+        });
     } catch (error) {
-        res.status(400).json({ message: error.message });
+        res.status(400).json({
+             message: error.message 
+            });
     }
 };

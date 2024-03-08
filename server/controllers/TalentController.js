@@ -1,4 +1,4 @@
-const JobVacancy = require('../models/JobVacancy');
+const JobVacancy = require('../models/Talent');
 const Application = require('../models/Application');
 
 // Create a new job vacancy
@@ -8,7 +8,9 @@ exports.createJobVacancy = async (req, res) => {
         await jobVacancy.save();
         res.status(201).json(jobVacancy);
     } catch (error) {
-        res.status(400).json({ message: error.message });
+        res.status(400).json({ 
+            message: error.message
+         });
     }
 };
 

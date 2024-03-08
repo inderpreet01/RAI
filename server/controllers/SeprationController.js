@@ -7,7 +7,9 @@ exports.createSeparation = async (req, res) => {
         await separation.save();
         res.status(201).json(separation);
     } catch (error) {
-        res.status(400).json({ message: error.message });
+        res.status(400).json({
+             message: error.message 
+            });
     }
 };
 
@@ -17,7 +19,9 @@ exports.getAllSeparations = async (req, res) => {
         const separations = await Separation.find();
         res.status(200).json(separations);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(500).json({ 
+            message: error.message
+         });
     }
 };
 
@@ -26,11 +30,15 @@ exports.getSeparationById = async (req, res) => {
     try {
         const separation = await Separation.findById(req.params.id);
         if (!separation) {
-            return res.status(404).json({ message: 'Separation record not found' });
+            return res.status(404).json({ 
+                message: 'Separation record not found'
+             });
         }
         res.status(200).json(separation);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(500).json({ 
+            message: error.message 
+        });
     }
 };
 
@@ -39,11 +47,15 @@ exports.updateSeparation = async (req, res) => {
     try {
         const separation = await Separation.findByIdAndUpdate(req.params.id, req.body, { new: true });
         if (!separation) {
-            return res.status(404).json({ message: 'Separation record not found' });
+            return res.status(404).json({ 
+                message: 'Separation record not found' 
+            });
         }
         res.status(200).json(separation);
     } catch (error) {
-        res.status(400).json({ message: error.message });
+        res.status(400).json({ 
+            message: error.message
+         });
     }
 };
 
@@ -52,10 +64,14 @@ exports.deleteSeparation = async (req, res) => {
     try {
         const separation = await Separation.findByIdAndDelete(req.params.id);
         if (!separation) {
-            return res.status(404).json({ message: 'Separation record not found' });
+            return res.status(404).json({
+                 message: 'Separation record not found'
+                 });
         }
         res.status(204).json();
     } catch (error) {
-        res.status(400).json({ message: error.message });
+        res.status(400).json({ 
+            message: error.message
+         });
     }
 };

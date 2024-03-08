@@ -7,7 +7,10 @@ exports.createAsset = async (req, res) => {
         await asset.save();
         res.status(201).json(asset);
     } catch (error) {
-        res.status(400).json({ message: error.message });
+        res.status(400).json({ 
+            message: error.message,
+            success:false,
+        });
     }
 };
 
@@ -17,7 +20,9 @@ exports.getAllAssets = async (req, res) => {
         const assets = await Asset.find();
         res.status(200).json(assets);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(500).json({ 
+            message: error.message 
+        });
     }
 };
 
@@ -30,20 +35,29 @@ exports.getAssetById = async (req, res) => {
         }
         res.status(200).json(asset);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(500).json({ 
+            message: error.message,
+            success:false, 
+        });
     }
 };
 
 // Update asset
 exports.updateAsset = async (req, res) => {
     try {
-        const asset = await Asset.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        const asset = await Asset.findByIdAndUpdate(
+        req.params.id, req.body, 
+        { new: true });
         if (!asset) {
-            return res.status(404).json({ message: 'Asset not found' });
+            return res.status(404).json({
+                 message: 'Asset not found' 
+                });
         }
         res.status(200).json(asset);
     } catch (error) {
-        res.status(400).json({ message: error.message });
+        res.status(400).json({
+             message: error.message 
+            });
     }
 };
 
@@ -52,10 +66,15 @@ exports.deleteAsset = async (req, res) => {
     try {
         const asset = await Asset.findByIdAndDelete(req.params.id);
         if (!asset) {
-            return res.status(404).json({ message: 'Asset not found' });
+            return res.status(404).json({ 
+                message: 'Asset not found',
+                success:false,
+            });
         }
         res.status(204).json();
     } catch (error) {
-        res.status(400).json({ message: error.message });
+        res.status(400).json({ 
+            message: error.message 
+        });
     }
 };

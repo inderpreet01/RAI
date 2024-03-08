@@ -7,7 +7,9 @@ exports.createGrievance = async (req, res) => {
         await grievance.save();
         res.status(201).json(grievance);
     } catch (error) {
-        res.status(400).json({ message: error.message });
+        res.status(400).json({ 
+            message: error.message 
+        });
     }
 };
 
@@ -17,7 +19,9 @@ exports.getAllGrievances = async (req, res) => {
         const grievances = await Grievance.find();
         res.status(200).json(grievances);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(500).json({ 
+            message: error.message 
+        });
     }
 };
 
@@ -26,24 +30,33 @@ exports.getGrievanceById = async (req, res) => {
     try {
         const grievance = await Grievance.findById(req.params.id);
         if (!grievance) {
-            return res.status(404).json({ message: 'Grievance not found' });
+            return res.status(404).json({ 
+                message: 'Grievance not found'
+             });
         }
         res.status(200).json(grievance);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(500).json({ 
+            message: error.message
+         });
     }
 };
 
 // Update grievance
 exports.updateGrievance = async (req, res) => {
     try {
-        const grievance = await Grievance.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        const grievance = await Grievance.findByIdAndUpdate(req.params.id, req.body, 
+            { new: true });
         if (!grievance) {
-            return res.status(404).json({ message: 'Grievance not found' });
+            return res.status(404).json({
+                 message: 'Grievance not found' 
+                });
         }
         res.status(200).json(grievance);
     } catch (error) {
-        res.status(400).json({ message: error.message });
+        res.status(400).json({ 
+            message: error.message 
+        });
     }
 };
 
@@ -52,10 +65,14 @@ exports.deleteGrievance = async (req, res) => {
     try {
         const grievance = await Grievance.findByIdAndDelete(req.params.id);
         if (!grievance) {
-            return res.status(404).json({ message: 'Grievance not found' });
+            return res.status(404).json({ 
+                message: 'Grievance not found'
+             });
         }
         res.status(204).json();
     } catch (error) {
-        res.status(400).json({ message: error.message });
+        res.status(400).json({ 
+            message: error.message
+         });
     }
 };

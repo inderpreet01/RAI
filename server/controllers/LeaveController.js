@@ -7,7 +7,9 @@ exports.createLeaveRequest = async (req, res) => {
         await leaveRequest.save();
         res.status(201).json(leaveRequest);
     } catch (error) {
-        res.status(400).json({ message: error.message });
+        res.status(400).json({ 
+            message: error.message 
+        });
     }
 };
 
@@ -17,7 +19,9 @@ exports.getAllLeaveRequests = async (req, res) => {
         const leaveRequests = await LeaveRequest.find();
         res.status(200).json(leaveRequests);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(500).json({ 
+            message: error.message 
+        });
     }
 };
 
@@ -26,24 +30,33 @@ exports.getLeaveRequestById = async (req, res) => {
     try {
         const leaveRequest = await LeaveRequest.findById(req.params.id);
         if (!leaveRequest) {
-            return res.status(404).json({ message: 'Leave request not found' });
+            return res.status(404).json({ 
+                message: 'Leave request not found'
+             });
         }
         res.status(200).json(leaveRequest);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(500).json({ 
+            message: error.message 
+        });
     }
 };
 
 // Update leave request
 exports.updateLeaveRequest = async (req, res) => {
     try {
-        const leaveRequest = await LeaveRequest.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        const leaveRequest = await LeaveRequest.findByIdAndUpdate(req.params.id, req.body, 
+            { new: true });
         if (!leaveRequest) {
-            return res.status(404).json({ message: 'Leave request not found' });
+            return res.status(404).json({ 
+                message: 'Leave request not found' 
+            });
         }
         res.status(200).json(leaveRequest);
     } catch (error) {
-        res.status(400).json({ message: error.message });
+        res.status(400).json({ 
+            message: error.message 
+        });
     }
 };
 
@@ -52,10 +65,14 @@ exports.deleteLeaveRequest = async (req, res) => {
     try {
         const leaveRequest = await LeaveRequest.findByIdAndDelete(req.params.id);
         if (!leaveRequest) {
-            return res.status(404).json({ message: 'Leave request not found' });
+            return res.status(404).json({ 
+                message: 'Leave request not found'
+             });
         }
         res.status(204).json();
     } catch (error) {
-        res.status(400).json({ message: error.message });
+        res.status(400).json({ 
+            message: error.message
+         });
     }
 };
